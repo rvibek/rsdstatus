@@ -20,7 +20,9 @@ or
 **Config in Heroku dashboard**
 
 Settings -> Add buildpacks -> heroku/python -> Save changes
+
 Settings -> Add buildpacks -> https://github.com/heroku/heroku-buildpack-chromedriver -> Save changes
+
 Settings -> Add buildpacks -> https://github.com/heroku/heroku-buildpack-google-chrome -> Save changes
 
 
