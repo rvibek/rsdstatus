@@ -11,7 +11,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/rsdstat", methods=['GET', 'POST'])
+@app.route("/rsdstatus", methods=['GET', 'POST'])
 def fetch_result(*args):
 
     formdob = request.form['dob']
@@ -23,11 +23,7 @@ def fetch_result(*args):
         formcaseno = "555-14C00000"
 
     options = webdriver.ChromeOptions()
-    # options = ChromeOptions()
     options.add_argument('headless')
-    # options.addArguments("--headless")
-    # options.addArguments("--disable-gpu")
-    # options.addArguments("--no-sandbox")
     options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     driver = webdriver.Chrome(options=options)
     driver.get("https://pritt.unhcregypt.org/RefugeeResult.aspx")
@@ -51,6 +47,7 @@ def fetch_result(*args):
 
     result = result.text
     # return result
+    
     driver.close()
 
     if result != "No Result":
