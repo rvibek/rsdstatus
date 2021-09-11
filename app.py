@@ -13,7 +13,7 @@ def index():
 
 @app.route("/rsdstatus", methods=['GET', 'POST'])
 def fetch_result(*args):
-
+    
     formdob = request.form['dob']
     formcaseno = request.form['caseno']
 
@@ -59,6 +59,58 @@ def fetch_result(*args):
 
     # print(result)
     return jsonify(data)
+
+
+@app.route("/rsdstatus_check")
+def access_param():
+    
+    paramdob = request.args.get('dob')
+    paramcaseno = request.args.get('caseno')
+
+    # if len(paramdob) < 8:
+    #     paramdob = "01/01/1950"
+    # if len(paramcaseno) == 0:
+    #     paramdob = "555-15C00001"
+    
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
+    driver = webdriver.Chrome(options=options)
+    driver.get("https://pritt.unhcregypt.org/RefugeeResult.aspx")
+
+    dob = driver.find_element_by_id('ctl00_ContentPlaceHolder1_sDoB_dateInput')
+    dob.send_keys(paramdob)
+
+    caseno = driver.find_element_by_id('ctl00_ContentPlaceHolder1_sProGresID')
+    caseno.click()
+    caseno.send_keys(Keys.HOME)
+    caseno.send_keys(paramcaseno)
+
+    driver.find_element_by_id(
+        'ContentPlaceHolder1_bSearch').send_keys(Keys.ENTER)
+
+    try:
+        driver.find_element_by_id('ui-accordion-accordion-header-1').click()
+    except:
+        0
+
+    result = driver.find_element_by_id('ContentPlaceHolder1_lResult')
+
+    result = result.text
+    # return result
+
+    driver.close()
+
+    if result != "No Result":
+        result = result.split('\nFor more details click here\n')
+    else:
+        result = ["No Result", "Retry with correct input"]
+
+    data = {"result": result[0], "explain": result[1]}
+
+    # print(result)
+    return jsonify(data)
+
 
 
 if __name__ == '__main__':
