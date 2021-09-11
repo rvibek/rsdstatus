@@ -4,5 +4,6 @@ selenium
 gunicorn
 requests
 Werkzeug
-gunicorn
 psycopg2
+six
+gunicorn
