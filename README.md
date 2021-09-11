@@ -36,5 +36,11 @@ options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
 driver = webdriver.Chrome(options=options)
 ```
 
-The result can also be fetched as a query argument (i.e. /rsdstatus_check?dob=01/01/1970&caseno=555-15C00001). DOB has to be dd/mm/yyyy format and followed by standard case number format.
+The result can also be fetched as a query argument 
+
+```
+/rsdstatus_check?dob=01/01/1970&caseno=555-15C00001
+```
+
+DOB has to be dd/mm/yyyy format and followed by standard case number format.
 
