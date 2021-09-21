@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from process_result import process 
 
 app = Flask(__name__)
 
@@ -24,6 +24,8 @@ def fetch_result(*args):
 
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
+    
+    # uncomment for hero
     options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     driver = webdriver.Chrome(options=options)
     driver.get("https://pritt.unhcregypt.org/RefugeeResult.aspx")
@@ -44,22 +46,15 @@ def fetch_result(*args):
         0
 
     result = driver.find_element_by_id('ContentPlaceHolder1_lResult')
-
     result = result.text
-    # return result
     
     driver.close()
 
-    if result != "No Result":
-        result = result.split('\nFor more details click here\n')
-    else:
-        result = ["No Result", "Retry with correct input"]
+    # pass to process function 
+    result = process(result)
 
-    data = {"result": result[0], "explain": result[1]}
-
-    # print(result)
-    return jsonify(data)
-
+    return jsonify(result)
+   
 
 @app.route("/rsdstatus_check")
 def access_param():
