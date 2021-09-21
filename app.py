@@ -26,7 +26,7 @@ def fetch_result(*args):
     options.add_argument('headless')
     
     # uncomment for hero
-    # options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
+    options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     driver = webdriver.Chrome(options=options)
     driver.get("https://pritt.unhcregypt.org/RefugeeResult.aspx")
 
