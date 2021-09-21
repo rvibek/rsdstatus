@@ -26,7 +26,7 @@ def fetch_result(*args):
     options.add_argument('headless')
     
     # uncomment for hero
-    options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
+    # options.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     driver = webdriver.Chrome(options=options)
     driver.get("https://pritt.unhcregypt.org/RefugeeResult.aspx")
 
@@ -96,15 +96,12 @@ def access_param():
 
     driver.close()
 
-    if result != "No Result":
-        result = result.split('\nFor more details click here\n')
-    else:
-        result = ["No Result", "Retry with correct input"]
+    # pass to process function 
+    result = process(result)
 
-    data = {"result": result[0], "explain": result[1]}
+    return jsonify(result)
+   
 
-    # print(result)
-    return jsonify(data)
 
 
 

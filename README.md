@@ -44,3 +44,26 @@ The result can also be fetched as a query argument
 
 DOB has to be dd/mm/yyyy format and followed by standard case number format.
 
+
+The resulting JSON now
+
+```
+{
+    "en" : {"result" : "...result text en....", "explain": "...explain text en..."}
+}
+
+```
+
+
+Future version
+
+```
+{
+    "en" : {"result" : "...result text en....", "explain": "...explain text en..."},
+    "ar" : {"result" : "...result text ar....", "explain": "...explain text ar..."},
+    "or" : {"result" : "...result text or....", "explain": "...explain text or..."},
+    "am" : {"result" : "...result text am....", "explain": "...explain text am..."},
+    "ti" : {"result" : "...result text ti....", "explain": "...explain text ti..."},
+    "so" : {"result" : "...result text so....", "explain": "...explain text so..."}
+}
+```
